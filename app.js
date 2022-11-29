@@ -1,24 +1,23 @@
-// const express = require('express');
-// const logger = require('morgan');
-// const app = express();
-// const sweetsRouter = require('./routes/sweets');
-// const workerRouter = require('./routes/workers');
-
-// app.use(express.json(), logger('dev'));
-
-// app.use('/api/v1/sweets', sweetsRouter)
-// app.use('/api/v1/workers', workerRouter)
-
-// module.exports = app;
-
+const express = require("express");
+const app = express();
+const productRouter = require("./routes/api/contact");
+const cors = require("cors");
 const dotenv = require("dotenv");
-// переносит ключ и значение из .env в внутренее окружение (process.env)
 dotenv.config();
-const { DB_HOST } = process.env;
+// переносит ключ и значение из .env в внутренее окружение (process.env)
+
+app.use(cors());
+app.use(express.json());
+app.use("/api/products", productRouter);
+
+const { DB_HOST, PORT = 3000 } = process.env;
 const mongoose = require("mongoose");
 mongoose
   .connect(DB_HOST)
-  .then(() => console.log(`Database connected`))
+  .then(() => {
+    app.listen(PORT);
+    console.log(`Database connected`);
+  })
   .catch((error) => {
     console.log(error.message);
     process.exit(1);
