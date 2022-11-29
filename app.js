@@ -10,8 +10,8 @@
 // app.use('/api/v1/workers', workerRouter)
 
 // module.exports = app;
-const DB_HOST =
-  "mongodb+srv://Solik098:m9D8RugRwyoDsIbJ@cluster0.ivrife7.mongodb.net/online_shop?retryWrites=true&w=majority";
+const { DB_HOST } = require("./config");
+
 const mongoose = require("mongoose");
 mongoose
   .connect(DB_HOST)
