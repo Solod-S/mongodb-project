@@ -10,8 +10,11 @@
 // app.use('/api/v1/workers', workerRouter)
 
 // module.exports = app;
-const { DB_HOST } = require("./config");
 
+const dotenv = require("dotenv");
+// переносит ключ и значение из .env в внутренее окружение (process.env)
+dotenv.config();
+const { DB_HOST } = process.env;
 const mongoose = require("mongoose");
 mongoose
   .connect(DB_HOST)
